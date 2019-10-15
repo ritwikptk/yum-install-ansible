@@ -1,0 +1,14 @@
+---
+- name: creating partition 
+  hosts: all
+  vars_files:
+    - vars/part.yml
+  tasks: 
+    - name: 3st task
+      parted:
+        device: /dev/vdb
+        number: "{{p_no}}"
+        state: present
+        part_start: "{{s_size}}"
+        part_end: "{{e_size}}"
+        flags: [ lvm ]
