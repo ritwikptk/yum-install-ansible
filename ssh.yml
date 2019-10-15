@@ -1,0 +1,9 @@
+---
+- name: ssh key copying 
+  hosts: all
+  tasks: 
+  - name: 1st
+    authorized_key:
+     user: root
+     state: present
+     key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDciD0dRtmdclu9oROtPalCJ0stKVQGAnaYZzpju/gS8JZYX1yvnbyGjUh2VY6sjnNTwGXwGcvUl2VTrvFgSubrRQMVl7KZqBojfTjcc9jZ4y7lUeMTi5XoASUZ5Z2d5I0sbPBghUbst3FMye3YW1ldkrdHSwULrAHz9B
