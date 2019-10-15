@@ -1,0 +1,41 @@
+---
+- name: nfs server
+  hosts: servera
+  tasks:
+    - name: install package
+      yum:
+        name: nfs-utils 
+    - name: creating nfs share directory
+      file:
+        path: /nfsshare
+        state: directory
+    - name: edit configuration
+      template:
+        src: nfsconf
+        dest: /etc/exports
+    - name: start and enable service
+      service: 
+        name: nfs-server
+        state: started
+        enabled: yes
+    - name: allow firewall
+      firewalld:
+        service: nfs
+        state: enabled
+        permanent: true
+        immediate: true
+- name: nfs client
+  hosts: serverb
+  tasks:
+    - name: install package
+      yum: 
+        name: nfs-utils
+    - name: create nfs mounting point
+      file: 
+        name: /mnt/nfsmountpoint
+        state: directory
+    - name: mount nfsshare
+      mount:
+        name: /nfsmountpoint
+        src: servera:/nfsshare 
+        fstype: nfs 
