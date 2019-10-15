@@ -1,0 +1,11 @@
+---
+- name: usercreation and set password
+  hosts: all 
+  vars_files:
+    - vars/users.yml
+  tasks:
+    - name: user creation
+      user:   
+        name: "{{ users }}" 
+        password: "{{ passwd }}"
+        state: present
